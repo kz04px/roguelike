@@ -1,0 +1,14 @@
+
+images/
+
+obj/
+
+bin/log\.txt
+
+*.csv
+
+\.vscode/
+
+bin/main-debug
+
+bin/main
