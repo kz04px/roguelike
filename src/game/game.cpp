@@ -37,6 +37,7 @@ Game::Game(std::shared_ptr<Renderer> r)
       spell_manager_{},
       camera_{0, 0, 32, 32} {
     assert(r);
+    auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
     // Register components
     ecs_.reg<components::Position>();
@@ -85,7 +86,7 @@ void Game::render() {
 }
 
 void Game::load() {
-    auto t = cprof::Timer(__PRETTY_FUNCTION__);
+    auto timer = cprof::Timer(__PRETTY_FUNCTION__);
 
     // Create spells
     spell_manager_.add(Spell{"Fire Aura", 1});
