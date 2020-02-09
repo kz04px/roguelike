@@ -34,7 +34,7 @@ Application::Application() : quit_{false} {
 
     {
         auto flags = SDL_INIT_EVERYTHING;
-        auto n = SDL_Init(SDL_INIT_EVERYTHING);
+        auto n = SDL_Init(flags);
         if (n) {
             clog::Log::get()->error("SDL_Init failed: ", flags);
             throw std::exception();
