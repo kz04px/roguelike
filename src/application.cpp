@@ -165,6 +165,7 @@ void Application::run() {
 
         // Render game
         game_->render();
+        renderer_->render();
 
         // Swap
         window_->swap();
