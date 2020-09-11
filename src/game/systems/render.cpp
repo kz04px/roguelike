@@ -57,8 +57,7 @@ void Game::s_render() {
             const int dy = p.y_ - y_offset;
 
             if (0 <= dx && dx <= camera_.w_ && 0 <= dy && dy <= camera_.h_) {
-                renderer_->draw_rect_tex(
-                    0, r.x(), r.y(), 16 * dx, 16 * dy, 16, 16);
+                renderer_->draw_rect_tex(0, r.x(), r.y(), 16 * dx, 16 * dy, 16, 16);
             }
         }
     }

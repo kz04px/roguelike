@@ -30,12 +30,7 @@ const int components::Spellbook::id = 7;
 const int components::Health::id = 8;
 
 Game::Game(std::shared_ptr<Renderer> r)
-    : ecs_{},
-      frame_{0},
-      renderer_{r},
-      tile_map_{},
-      spell_manager_{},
-      camera_{0, 0, 32, 32} {
+    : ecs_{}, frame_{0}, renderer_{r}, tile_map_{}, spell_manager_{}, camera_{0, 0, 32, 32} {
     assert(r);
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 

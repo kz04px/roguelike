@@ -5,8 +5,7 @@ namespace components {
 
 struct PlayerInput {
    public:
-    PlayerInput()
-        : left_{false}, right_{false}, up_{false}, down_{false}, use_{false} {
+    PlayerInput() : left_{false}, right_{false}, up_{false}, down_{false}, use_{false} {
     }
 
     static const int id;

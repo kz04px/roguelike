@@ -45,9 +45,7 @@ struct Chunk {
         // set(15, 0, Tile::Water);
     }
 
-    void set(const unsigned int x,
-             const unsigned int y,
-             const Tile t) noexcept {
+    void set(const unsigned int x, const unsigned int y, const Tile t) noexcept {
         assert(x < 16);
         assert(y < 16);
         tiles_[x][y] = t;
@@ -112,10 +110,8 @@ class TileMap {
     TileMap() {
     }
 
-    [[nodiscard]] bool has(const int chunk_x, const int chunk_y) const
-        noexcept {
-        return chunks_.find(std::pair<int, int>(chunk_x, chunk_y)) !=
-               chunks_.end();
+    [[nodiscard]] bool has(const int chunk_x, const int chunk_y) const noexcept {
+        return chunks_.find(std::pair<int, int>(chunk_x, chunk_y)) != chunks_.end();
     }
 
     void generate(const int chunk_x, const int chunk_y) {
@@ -123,11 +119,7 @@ class TileMap {
 
         if (has(chunk_x, chunk_y)) {
             clog::Log::get()->error(
-                "Tried to generate chunk that already exists (",
-                chunk_x,
-                ",",
-                chunk_y,
-                ")");
+                "Tried to generate chunk that already exists (", chunk_x, ",", chunk_y, ")");
             return;
         }
         const std::pair<int, int> p{chunk_x, chunk_y};

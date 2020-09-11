@@ -4,8 +4,7 @@
 #include <cassert>
 #include <clog/clog.hpp>
 
-Texture::Texture(std::shared_ptr<SDL_Renderer> renderer,
-                 const std::string &path) {
+Texture::Texture(std::shared_ptr<SDL_Renderer> renderer, const std::string &path) {
     assert(renderer);
 }
 

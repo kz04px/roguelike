@@ -4,29 +4,23 @@
 #include <clog/clog.hpp>
 #include <stdexcept>
 
-Window::Window(const std::string &title, const int w, const int h)
-    : width_(w), height_(h) {
+Window::Window(const std::string &title, const int w, const int h) : width_(w), height_(h) {
     if (w <= 0 || h <= 0) {
         throw std::invalid_argument("Size too small");
     }
     clog::Log::get()->info("Window constructor");
 
     const auto window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
-    window_ =
-        std::shared_ptr<SDL_Window>(SDL_CreateWindow(title.c_str(),
-                                                     SDL_WINDOWPOS_UNDEFINED,
-                                                     SDL_WINDOWPOS_UNDEFINED,
-                                                     w,
-                                                     h,
-                                                     window_flags),
-                                    SDL_DestroyWindow);
+    window_ = std::shared_ptr<SDL_Window>(
+        SDL_CreateWindow(
+            title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, window_flags),
+        SDL_DestroyWindow);
     if (!window_) {
         throw std::exception();
     }
 
     renderer_ = std::shared_ptr<SDL_Renderer>(
-        SDL_CreateRenderer(window_.get(), -1, SDL_RENDERER_ACCELERATED),
-        SDL_DestroyRenderer);
+        SDL_CreateRenderer(window_.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer);
     if (!renderer_) {
         throw std::exception();
 

@@ -9,6 +9,7 @@ AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 IncludeBlocks: Merge
+ColumnLimit: 100
 BreakBeforeBraces: Custom
 BraceWrapping:
     AfterEnum: true

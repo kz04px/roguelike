@@ -11,6 +11,7 @@ class Window {
    public:
     Window() {
     }
+
     Window(const std::string &title, const int w, const int h);
 
     ~Window();

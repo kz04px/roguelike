@@ -41,23 +41,19 @@ bool Renderer::load_texture(const int id, const std::string &path) {
     }
 
     // Create texture from surface pixels
-    SDL_Texture *tex =
-        SDL_CreateTextureFromSurface(renderer_.get(), loaded_surface);
+    SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer_.get(), loaded_surface);
 
     // Get rid of old loaded surface
     SDL_FreeSurface(loaded_surface);
 
     if (!tex) {
-        clog::Log::get()->error("SDL_CreateTextureFromSurface failure: ",
-                                SDL_GetError(),
-                                ", ",
-                                path);
+        clog::Log::get()->error(
+            "SDL_CreateTextureFromSurface failure: ", SDL_GetError(), ", ", path);
         return false;
     }
 
     clog::Log::get()->info("Texture loaded: ", path);
-    textures_.emplace(id,
-                      std::shared_ptr<SDL_Texture>(tex, SDL_DestroyTexture));
+    textures_.emplace(id, std::shared_ptr<SDL_Texture>(tex, SDL_DestroyTexture));
     return true;
 }
 
@@ -83,10 +79,7 @@ void Renderer::set_colour(const int r, const int g, const int b, const int a) {
 }
 
 // Render a filled rectangle
-void Renderer::draw_rect_fill(const int x,
-                              const int y,
-                              const int w,
-                              const int h) {
+void Renderer::draw_rect_fill(const int x, const int y, const int w, const int h) {
     SDL_Rect rect;
     rect.x = x;
     rect.y = height_ - y - h;
@@ -130,6 +123,5 @@ void Renderer::draw_rect_tex(const int id,
     dst.w = w;
     dst.h = h;
 
-    SDL_RenderCopy(
-        renderer_.get(), textures_.find(id)->second.get(), &src, &dst);
+    SDL_RenderCopy(renderer_.get(), textures_.find(id)->second.get(), &src, &dst);
 }
