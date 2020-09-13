@@ -12,3 +12,13 @@ bin/log\.txt
 bin/main-debug
 
 bin/main
+
+bin/cmake_install.cmake
+
+bin/CMakeCache.txt
+
+bin/CMakeFiles/
+
+bin/Makefile
+
+bin/roguelike
