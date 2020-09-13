@@ -10,9 +10,9 @@ Texture::Texture(std::shared_ptr<SDL_Renderer> renderer, const std::string &path
 
 Texture::~Texture() {
     clog::Log::get()->info("Texture destroyed");
-    SDL_DestroyTexture(texture_);
+    SDL_DestroyTexture(m_texture);
 }
 
 SDL_Texture *Texture::get() {
-    return texture_;
+    return m_texture;
 }

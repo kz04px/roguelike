@@ -7,8 +7,8 @@ struct Spellbook {
    public:
     Spellbook() {
     }
-    int n_;
     static const int id;
+    int m_n;
 };
 
 }  // namespace components

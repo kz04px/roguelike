@@ -5,12 +5,12 @@ namespace components {
 
 struct Health {
    public:
-    Health(const int h) : current_{h}, initial_{h} {
+    Health(const int h) : m_current{h}, m_initial{h} {
     }
 
     static const int id;
-    int current_;
-    int initial_;
+    int m_current;
+    int m_initial;
 };
 
 }  // namespace components

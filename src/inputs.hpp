@@ -55,21 +55,21 @@ class Inputs {
 
     [[nodiscard]] KeyState get_key(const KeyType t) const noexcept {
         assert(static_cast<int>(t) < 512);
-        return keystates_[static_cast<int>(t)];
+        return m_keystates[static_cast<int>(t)];
     }
 
     void set_key(const KeyType t, const KeyState k) {
         assert(static_cast<int>(t) < 512);
-        keystates_[static_cast<int>(t)] = k;
+        m_keystates[static_cast<int>(t)] = k;
     }
 
     void set_key(const int t, const KeyState k) {
         assert(t < 512);
-        keystates_[t] = k;
+        m_keystates[t] = k;
     }
 
    private:
-    KeyState keystates_[512];
+    KeyState m_keystates[512];
 };
 
 #endif

@@ -30,31 +30,31 @@ const int components::Spellbook::id = 7;
 const int components::Health::id = 8;
 
 Game::Game(std::shared_ptr<Renderer> r)
-    : ecs_{}, frame_{0}, renderer_{r}, tile_map_{}, spell_manager_{}, camera_{0, 0, 32, 32} {
+    : m_ecs{}, m_frame{0}, m_renderer{r}, m_tile_map{}, m_spell_manager{}, m_camera{0, 0, 32, 32} {
     assert(r);
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
     // Register components
-    ecs_.reg<components::Position>();
-    ecs_.reg<components::Render>();
-    ecs_.reg<components::Age>();
-    ecs_.reg<components::PlayerInput>();
-    ecs_.reg<components::Movement>();
-    ecs_.reg<components::Flammable>();
-    ecs_.reg<components::Timer>();
-    ecs_.reg<components::Spellbook>();
-    ecs_.reg<components::Health>();
+    m_ecs.reg<components::Position>();
+    m_ecs.reg<components::Render>();
+    m_ecs.reg<components::Age>();
+    m_ecs.reg<components::PlayerInput>();
+    m_ecs.reg<components::Movement>();
+    m_ecs.reg<components::Flammable>();
+    m_ecs.reg<components::Timer>();
+    m_ecs.reg<components::Spellbook>();
+    m_ecs.reg<components::Health>();
 
     // Check components
-    assert(ecs_.registered<components::Position>());
-    assert(ecs_.registered<components::Render>());
-    assert(ecs_.registered<components::Age>());
-    assert(ecs_.registered<components::PlayerInput>());
-    assert(ecs_.registered<components::Movement>());
-    assert(ecs_.registered<components::Flammable>());
-    assert(ecs_.registered<components::Timer>());
-    assert(ecs_.registered<components::Spellbook>());
-    assert(ecs_.registered<components::Health>());
+    assert(m_ecs.registered<components::Position>());
+    assert(m_ecs.registered<components::Render>());
+    assert(m_ecs.registered<components::Age>());
+    assert(m_ecs.registered<components::PlayerInput>());
+    assert(m_ecs.registered<components::Movement>());
+    assert(m_ecs.registered<components::Flammable>());
+    assert(m_ecs.registered<components::Timer>());
+    assert(m_ecs.registered<components::Spellbook>());
+    assert(m_ecs.registered<components::Health>());
 }
 
 void Game::step() {
@@ -69,8 +69,8 @@ void Game::step() {
     s_spells();
     s_health();
     s_camera();
-    ecs_.update();
-    frame_++;
+    m_ecs.update();
+    m_frame++;
 }
 
 void Game::render() {
@@ -84,17 +84,17 @@ void Game::load() {
     auto timer = cprof::Timer(__PRETTY_FUNCTION__);
 
     // Create spells
-    spell_manager_.add(Spell{"Fire Aura", 1});
+    m_spell_manager.add(Spell{"Fire Aura", 1});
 
     // Create player
     {
-        auto e = ecs_.create();
-        ecs_.add<components::Position>(e, 2, 2);
-        ecs_.add<components::Render>(e, 25, 0);
-        ecs_.add<components::PlayerInput>(e);
-        ecs_.add<components::Movement>(e);
-        ecs_.add<components::Spellbook>(e);
-        ecs_.add<components::Health>(e, 100);
+        auto e = m_ecs.create();
+        m_ecs.add<components::Position>(e, 2, 2);
+        m_ecs.add<components::Render>(e, 25, 0);
+        m_ecs.add<components::PlayerInput>(e);
+        m_ecs.add<components::Movement>(e);
+        m_ecs.add<components::Spellbook>(e);
+        m_ecs.add<components::Health>(e, 100);
     }
 
     // Create trees
@@ -113,11 +113,11 @@ void Game::load() {
             const int x = rand() % 128 - 64;
             const int y = rand() % 128 - 64;
             const auto t = tiles[rand() % 8];
-            auto e = ecs_.create();
-            ecs_.add<components::Position>(e, x, y);
-            ecs_.add<components::Render>(e, t.first, t.second);
-            ecs_.add<components::Health>(e, 10);
-            ecs_.add<components::Flammable>(e, false);
+            auto e = m_ecs.create();
+            m_ecs.add<components::Position>(e, x, y);
+            m_ecs.add<components::Render>(e, t.first, t.second);
+            m_ecs.add<components::Health>(e, 10);
+            m_ecs.add<components::Flammable>(e, false);
         }
     }
 
@@ -137,11 +137,11 @@ void Game::load() {
             const int x = rand() % 128 - 64;
             const int y = rand() % 128 - 64;
             const auto t = tiles[rand() % 8];
-            auto e = ecs_.create();
-            ecs_.add<components::Position>(e, x, y);
-            ecs_.add<components::Render>(e, t.first, t.second);
-            ecs_.add<components::Health>(e, 2);
-            ecs_.add<components::Flammable>(e, false);
+            auto e = m_ecs.create();
+            m_ecs.add<components::Position>(e, x, y);
+            m_ecs.add<components::Render>(e, t.first, t.second);
+            m_ecs.add<components::Health>(e, 2);
+            m_ecs.add<components::Flammable>(e, false);
         }
     }
 
@@ -150,9 +150,9 @@ void Game::load() {
         for (int i = 0; i < 1024; ++i) {
             const int x = rand() % 128 - 64;
             const int y = rand() % 128 - 64;
-            auto e = ecs_.create();
-            ecs_.add<components::Position>(e, x, y);
-            ecs_.add<components::Render>(e, 5, 2);
+            auto e = m_ecs.create();
+            m_ecs.add<components::Position>(e, x, y);
+            m_ecs.add<components::Render>(e, 5, 2);
         }
     }
 
@@ -170,9 +170,9 @@ void Game::load() {
             const int x = rand() % 128 - 64;
             const int y = rand() % 128 - 64;
             const auto t = tiles[rand() % 2];
-            auto e = ecs_.create();
-            ecs_.add<components::Position>(e, x, y);
-            ecs_.add<components::Render>(e, t.first, t.second);
+            auto e = m_ecs.create();
+            m_ecs.add<components::Position>(e, x, y);
+            m_ecs.add<components::Render>(e, t.first, t.second);
         }
     }
 }

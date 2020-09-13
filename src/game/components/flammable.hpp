@@ -5,11 +5,11 @@ namespace components {
 
 struct Flammable {
    public:
-    Flammable(const bool f) : on_fire{f} {
+    Flammable(const bool f) : m_on_fire{f} {
     }
 
     static const int id;
-    bool on_fire;
+    bool m_on_fire;
 };
 
 }  // namespace components

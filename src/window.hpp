@@ -23,10 +23,10 @@ class Window {
     void swap();
 
    private:
-    int width_;
-    int height_;
-    std::shared_ptr<SDL_Window> window_;
-    std::shared_ptr<SDL_Renderer> renderer_;
+    int m_width;
+    int m_height;
+    std::shared_ptr<SDL_Window> m_window;
+    std::shared_ptr<SDL_Renderer> m_renderer;
 };
 
 #endif

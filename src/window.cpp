@@ -4,35 +4,35 @@
 #include <clog/clog.hpp>
 #include <stdexcept>
 
-Window::Window(const std::string &title, const int w, const int h) : width_(w), height_(h) {
+Window::Window(const std::string &title, const int w, const int h) : m_width(w), m_height(h) {
     if (w <= 0 || h <= 0) {
         throw std::invalid_argument("Size too small");
     }
     clog::Log::get()->info("Window constructor");
 
     const auto window_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE;
-    window_ = std::shared_ptr<SDL_Window>(
+    m_window = std::shared_ptr<SDL_Window>(
         SDL_CreateWindow(
             title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, window_flags),
         SDL_DestroyWindow);
-    if (!window_) {
+    if (!m_window) {
         throw std::exception();
     }
 
-    renderer_ = std::shared_ptr<SDL_Renderer>(
-        SDL_CreateRenderer(window_.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer);
-    if (!renderer_) {
+    m_renderer = std::shared_ptr<SDL_Renderer>(
+        SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer);
+    if (!m_renderer) {
         throw std::exception();
 
         SDL_Rect rect;
         rect.x = 0;
         rect.y = 0;
-        rect.w = width_;
-        rect.h = height_;
-        SDL_RenderSetViewport(renderer_.get(), &rect);
-        SDL_RenderSetClipRect(renderer_.get(), &rect);
-        SDL_SetRenderDrawColor(renderer_.get(), 255, 255, 255, 255);
-        SDL_SetRenderDrawBlendMode(renderer_.get(), SDL_BLENDMODE_BLEND);
+        rect.w = m_width;
+        rect.h = m_height;
+        SDL_RenderSetViewport(m_renderer.get(), &rect);
+        SDL_RenderSetClipRect(m_renderer.get(), &rect);
+        SDL_SetRenderDrawColor(m_renderer.get(), 255, 255, 255, 255);
+        SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
     }
 }
 
@@ -41,25 +41,25 @@ Window::~Window() {
 }
 
 std::shared_ptr<SDL_Renderer> Window::renderer() {
-    return renderer_;
+    return m_renderer;
 }
 
 void Window::resize(const int w, const int h) {
-    assert(renderer_);
+    assert(m_renderer);
 
-    width_ = w;
-    height_ = h;
+    m_width = w;
+    m_height = h;
 
     SDL_Rect rect;
     rect.x = 0;
     rect.y = 0;
-    rect.w = width_;
-    rect.h = height_;
+    rect.w = m_width;
+    rect.h = m_height;
 
-    SDL_RenderSetViewport(renderer_.get(), &rect);
-    SDL_RenderSetClipRect(renderer_.get(), &rect);
+    SDL_RenderSetViewport(m_renderer.get(), &rect);
+    SDL_RenderSetClipRect(m_renderer.get(), &rect);
 }
 
 void Window::swap() {
-    SDL_GL_SwapWindow(window_.get());
+    SDL_GL_SwapWindow(m_window.get());
 }

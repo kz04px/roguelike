@@ -8,16 +8,16 @@ using namespace components;
 void Game::s_input() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    auto entities = ecs_.entities<PlayerInput>();
+    auto entities = m_ecs.entities<PlayerInput>();
     for (const auto &e : entities) {
-        auto &i = ecs_.get<PlayerInput>(e);
+        auto &i = m_ecs.get<PlayerInput>(e);
 
         // Movement
-        i.left_ = Inputs::get()->get_key(KeyType::Key_A) == KeyState::Down;
-        i.right_ = Inputs::get()->get_key(KeyType::Key_D) == KeyState::Down;
-        i.up_ = Inputs::get()->get_key(KeyType::Key_W) == KeyState::Down;
-        i.down_ = Inputs::get()->get_key(KeyType::Key_S) == KeyState::Down;
+        i.m_left = Inputs::get()->get_key(KeyType::Key_A) == KeyState::Down;
+        i.m_right = Inputs::get()->get_key(KeyType::Key_D) == KeyState::Down;
+        i.m_up = Inputs::get()->get_key(KeyType::Key_W) == KeyState::Down;
+        i.m_down = Inputs::get()->get_key(KeyType::Key_S) == KeyState::Down;
         // Other
-        i.use_ = Inputs::get()->get_key(KeyType::Key_F) == KeyState::Down;
+        i.m_use = Inputs::get()->get_key(KeyType::Key_F) == KeyState::Down;
     }
 }

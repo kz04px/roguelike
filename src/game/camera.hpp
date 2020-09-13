@@ -4,31 +4,31 @@
 class Camera {
    public:
     Camera(const int x, const int y, const int w, const int h)
-        : x_{x}, y_{y}, w_{w}, h_{h}, half_w_{w / 2}, half_h_{h / 2} {
+        : m_x{x}, m_y{y}, m_w{w}, m_h{h}, m_half_w{w / 2}, m_half_h{h / 2} {
     }
 
     [[nodiscard]] int x() const noexcept {
-        return x_;
+        return m_x;
     }
 
     [[nodiscard]] int y() const noexcept {
-        return y_;
+        return m_y;
     }
 
     [[nodiscard]] int w() const noexcept {
-        return w_;
+        return m_w;
     }
 
     [[nodiscard]] int h() const noexcept {
-        return h_;
+        return m_h;
     }
 
-    int x_;
-    int y_;
-    int w_;
-    int h_;
-    int half_w_;
-    int half_h_;
+    int m_x;
+    int m_y;
+    int m_w;
+    int m_h;
+    int m_half_w;
+    int m_half_h;
 
    private:
 };

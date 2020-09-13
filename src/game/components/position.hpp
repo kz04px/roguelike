@@ -5,12 +5,12 @@ namespace components {
 
 struct Position {
    public:
-    Position(const int x, const int y) : x_{x}, y_{y} {
+    Position(const int x, const int y) : m_x{x}, m_y{y} {
     }
 
     static const int id;
-    int x_;
-    int y_;
+    int m_x;
+    int m_y;
 };
 
 }  // namespace components

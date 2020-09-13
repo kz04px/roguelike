@@ -28,10 +28,10 @@ class Application {
     void run();
 
    private:
-    std::unique_ptr<Window> window_;
-    std::shared_ptr<Renderer> renderer_;
-    std::unique_ptr<Game> game_;
-    bool quit_;
+    std::unique_ptr<Window> m_window;
+    std::shared_ptr<Renderer> m_renderer;
+    std::unique_ptr<Game> m_game;
+    bool m_quit;
 };
 
 #endif

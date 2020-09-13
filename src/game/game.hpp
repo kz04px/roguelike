@@ -45,12 +45,12 @@ class Game {
     void s_render_debug();
 
    private:
-    ECS ecs_;
-    std::uint64_t frame_;
-    std::shared_ptr<Renderer> renderer_;
-    TileMap tile_map_;
-    SpellManager spell_manager_;
-    Camera camera_;
+    ECS m_ecs;
+    std::uint64_t m_frame;
+    std::shared_ptr<Renderer> m_renderer;
+    TileMap m_tile_map;
+    SpellManager m_spell_manager;
+    Camera m_camera;
 };
 
 #endif

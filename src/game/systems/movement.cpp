@@ -10,26 +10,26 @@ using namespace components;
 void Game::s_movement() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    auto entities = ecs_.entities<Movement, Position>();
+    auto entities = m_ecs.entities<Movement, Position>();
     for (const auto &e : entities) {
-        auto &m = ecs_.get<Movement>(e);
-        auto &p = ecs_.get<Position>(e);
+        auto &m = m_ecs.get<Movement>(e);
+        auto &p = m_ecs.get<Position>(e);
 
-        if (m.left_) {
-            if (tile_map_.get_tile(p.x_ - 1, p.y_) != Tile::Water) {
-                p.x_--;
+        if (m.m_left) {
+            if (m_tile_map.get_tile(p.m_x - 1, p.m_y) != Tile::Water) {
+                p.m_x--;
             }
-        } else if (m.right_) {
-            if (tile_map_.get_tile(p.x_ + 1, p.y_) != Tile::Water) {
-                p.x_++;
+        } else if (m.m_right) {
+            if (m_tile_map.get_tile(p.m_x + 1, p.m_y) != Tile::Water) {
+                p.m_x++;
             }
-        } else if (m.up_) {
-            if (tile_map_.get_tile(p.x_, p.y_ + 1) != Tile::Water) {
-                p.y_++;
+        } else if (m.m_up) {
+            if (m_tile_map.get_tile(p.m_x, p.m_y + 1) != Tile::Water) {
+                p.m_y++;
             }
-        } else if (m.down_) {
-            if (tile_map_.get_tile(p.x_, p.y_ - 1) != Tile::Water) {
-                p.y_--;
+        } else if (m.m_down) {
+            if (m_tile_map.get_tile(p.m_x, p.m_y - 1) != Tile::Water) {
+                p.m_y--;
             }
         }
     }

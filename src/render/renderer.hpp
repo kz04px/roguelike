@@ -38,10 +38,10 @@ class Renderer {
                        const int h);
 
    private:
-    int width_ = 512;
-    int height_ = 512;
-    std::shared_ptr<SDL_Renderer> renderer_;
-    std::map<int, std::shared_ptr<SDL_Texture>> textures_;
+    int m_width = 512;
+    int m_height = 512;
+    std::shared_ptr<SDL_Renderer> m_renderer;
+    std::map<int, std::shared_ptr<SDL_Texture>> m_textures;
 };
 
 #endif

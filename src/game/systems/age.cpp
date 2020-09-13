@@ -7,13 +7,13 @@ using namespace components;
 void Game::s_age() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    auto entities = ecs_.entities<Age>();
+    auto entities = m_ecs.entities<Age>();
     for (const auto &e : entities) {
-        auto &a = ecs_.get<Age>(e);
-        a.current_++;
+        auto &a = m_ecs.get<Age>(e);
+        a.m_current++;
 
-        if (a.current_ >= a.max_) {
-            ecs_.remove(e);
+        if (a.m_current >= a.m_max) {
+            m_ecs.remove(e);
         }
     }
 }

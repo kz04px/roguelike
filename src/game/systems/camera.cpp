@@ -7,24 +7,24 @@ using namespace components;
 void Game::s_camera() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    auto &p = ecs_.get<Position>(0);
+    auto &p = m_ecs.get<Position>(0);
 
-    const int target_x = p.x_;
-    const int target_y = p.y_;
+    const int target_x = p.m_x;
+    const int target_y = p.m_y;
     const int leash_x = 5;
     const int leash_y = 5;
-    const int dx = camera_.x_ - target_x;
-    const int dy = camera_.y_ - target_y;
+    const int dx = m_camera.m_x - target_x;
+    const int dy = m_camera.m_y - target_y;
 
     if (dx < -leash_x) {
-        camera_.x_++;
+        m_camera.m_x++;
     } else if (dx > leash_x) {
-        camera_.x_--;
+        m_camera.m_x--;
     }
 
     if (dy < -leash_y) {
-        camera_.y_++;
+        m_camera.m_y++;
     } else if (dy > leash_y) {
-        camera_.y_--;
+        m_camera.m_y--;
     }
 }

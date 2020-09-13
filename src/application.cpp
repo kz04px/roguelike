@@ -24,7 +24,7 @@ static const std::unordered_map<SDL_Keycode, KeyType> key_lut = {
     {SDLK_y, KeyType::Key_Y}, {SDLK_z, KeyType::Key_Z}, {SDLK_ESCAPE, KeyType::Key_ESC},
 };
 
-Application::Application() : quit_{false} {
+Application::Application() : m_quit{false} {
     clog::Log::get()->info("Application constructor");
 
     {
@@ -47,15 +47,15 @@ Application::Application() : quit_{false} {
         clog::Log::get()->info("SDL IMG initialised: ", flags);
     }
 
-    window_ = std::make_unique<Window>("Roguelike", 512, 512);
-    renderer_ = std::shared_ptr<Renderer>(new Renderer(window_->renderer()));
-    game_ = std::make_unique<Game>(renderer_);
+    m_window = std::make_unique<Window>("Roguelike", 512, 512);
+    m_renderer = std::shared_ptr<Renderer>(new Renderer(m_window->renderer()));
+    m_game = std::make_unique<Game>(m_renderer);
 
     // Prepare renderer
-    renderer_->load_texture(0, "./assets/colored_transparent.png");
+    m_renderer->load_texture(0, "./assets/colored_transparent.png");
 
     // Prepare game
-    game_->load();
+    m_game->load();
 }
 
 Application::~Application() {
@@ -79,7 +79,7 @@ void Application::on_window_close(WindowCloseEvent &e) {
 }
 
 void Application::on_window_resize(WindowResizeEvent &e) {
-    window_->resize(e.width(), e.height());
+    m_window->resize(e.width(), e.height());
 }
 
 void Application::on_event(Event &e) {
@@ -106,19 +106,19 @@ void Application::on_event(Event &e) {
     }
 
     // Pass along to the game
-    game_->on_event(e);
+    m_game->on_event(e);
 }
 
 void Application::run() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    while (!quit_) {
+    while (!m_quit) {
         // Handle SDL events
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    quit_ = true;
+                    m_quit = true;
                     break;
                 case SDL_KEYDOWN: {
                     const auto key = key_lut.find(event.key.keysym.sym);
@@ -155,14 +155,14 @@ void Application::run() {
         }
 
         // Clear
-        renderer_->clear();
+        m_renderer->clear();
 
         // Render game
-        game_->render();
-        renderer_->render();
+        m_game->render();
+        m_renderer->render();
 
         // Swap
-        window_->swap();
+        m_window->swap();
 
         // Wait
         SDL_Delay(16);

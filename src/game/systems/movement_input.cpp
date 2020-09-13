@@ -9,14 +9,14 @@ using namespace components;
 void Game::s_movement_input() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
-    auto entities = ecs_.entities<Movement, PlayerInput>();
+    auto entities = m_ecs.entities<Movement, PlayerInput>();
     for (const auto &e : entities) {
-        auto &m = ecs_.get<Movement>(e);
-        auto &p = ecs_.get<PlayerInput>(e);
+        auto &m = m_ecs.get<Movement>(e);
+        auto &p = m_ecs.get<PlayerInput>(e);
 
-        m.left_ = p.left_;
-        m.right_ = p.right_;
-        m.up_ = p.up_;
-        m.down_ = p.down_;
+        m.m_left = p.m_left;
+        m.m_right = p.m_right;
+        m.m_up = p.m_up;
+        m.m_down = p.m_down;
     }
 }

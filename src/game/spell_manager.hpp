@@ -6,21 +6,21 @@
 
 struct Spell {
    public:
-    Spell(const std::string &name, const int m) : name_{name}, mana_{m} {
+    Spell(const std::string &name, const int m) : m_name{name}, m_mana{m} {
     }
 
-    std::string name_;
-    int mana_;
+    std::string m_name;
+    int m_mana;
 };
 
 class SpellManager {
    public:
     void add(const Spell &s) {
-        spells_.push_back(s);
+        m_spells.push_back(s);
     }
 
    private:
-    std::vector<Spell> spells_;
+    std::vector<Spell> m_spells;
 };
 
 #endif

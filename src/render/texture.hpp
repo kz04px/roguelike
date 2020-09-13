@@ -15,7 +15,7 @@ class Texture {
     SDL_Texture *get();
 
    private:
-    SDL_Texture *texture_;
+    SDL_Texture *m_texture;
 };
 
 #endif

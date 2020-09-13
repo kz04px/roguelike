@@ -20,7 +20,7 @@ struct Chunk {
     Chunk() {
     }
 
-    Chunk(const int x, const int y) : x_{x}, y_{y} {
+    Chunk(const int x, const int y) : m_x{x}, m_y{y} {
         auto t = cprof::Timer(__PRETTY_FUNCTION__);
 
         for (int i = 0; i < 16; ++i) {
@@ -48,23 +48,23 @@ struct Chunk {
     void set(const unsigned int x, const unsigned int y, const Tile t) noexcept {
         assert(x < 16);
         assert(y < 16);
-        tiles_[x][y] = t;
+        m_tiles[x][y] = t;
     }
 
     [[nodiscard]] Tile get(const int x, const int y) const noexcept {
         assert(x < 16);
         assert(y < 16);
-        return tiles_[x][y];
+        return m_tiles[x][y];
     }
 
     /*
     bool operator==(const Chunk &rhs) const {
-        return x_ == rhs.x_ && y_ == rhs.y_;
+        return m_x == rhs.m_x && m_y == rhs.m_y;
     }
     */
-    int x_;
-    int y_;
-    Tile tiles_[16][16];
+    int m_x;
+    int m_y;
+    Tile m_tiles[16][16];
 };
 
 class Hasher {
@@ -111,7 +111,7 @@ class TileMap {
     }
 
     [[nodiscard]] bool has(const int chunk_x, const int chunk_y) const noexcept {
-        return chunks_.find(std::pair<int, int>(chunk_x, chunk_y)) != chunks_.end();
+        return m_chunks.find(std::pair<int, int>(chunk_x, chunk_y)) != m_chunks.end();
     }
 
     void generate(const int chunk_x, const int chunk_y) {
@@ -124,7 +124,7 @@ class TileMap {
         }
         const std::pair<int, int> p{chunk_x, chunk_y};
         Chunk c{chunk_x, chunk_y};
-        chunks_.emplace(p, c);
+        m_chunks.emplace(p, c);
     }
 
     void set(const int tile_x, const int tile_y, const Tile t) {
@@ -140,8 +140,8 @@ class TileMap {
         }
 
         // Set the tile within the chunk
-        auto iter = chunks_.find(p);
-        assert(iter != chunks_.end());
+        auto iter = m_chunks.find(p);
+        assert(iter != m_chunks.end());
         iter->second.set(offset_x, offset_y, t);
     }
 
@@ -156,8 +156,8 @@ class TileMap {
         }
 
         // Get the tile within the chunk
-        auto iter = chunks_.find(p);
-        assert(iter != chunks_.end());
+        auto iter = m_chunks.find(p);
+        assert(iter != m_chunks.end());
         return &iter->second;
     }
 
@@ -176,13 +176,13 @@ class TileMap {
         }
 
         // Get the tile within the chunk
-        auto iter = chunks_.find(p);
-        assert(iter != chunks_.end());
+        auto iter = m_chunks.find(p);
+        assert(iter != m_chunks.end());
         return iter->second.get(offset_x, offset_y);
     }
 
    private:
-    std::unordered_map<std::pair<int, int>, Chunk, Hasher> chunks_;
+    std::unordered_map<std::pair<int, int>, Chunk, Hasher> m_chunks;
 };
 
 #endif

@@ -5,11 +5,11 @@ namespace components {
 
 struct Timer {
    public:
-    Timer(const int t) : time_left_{t} {
+    Timer(const int t) : m_time_left{t} {
     }
 
     static const int id;
-    int time_left_;
+    int m_time_left;
 };
 
 }  // namespace components
