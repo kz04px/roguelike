@@ -3,6 +3,13 @@ A roguelike written in C++ that uses an ECS and SDL for rendering. Work in progr
 
 ---
 
+## Build Requirements
+- SDL2
+- SDL2_image
+- SDL2_ttf
+
+---
+
 ## Build Instructions
 
 ```Bash
