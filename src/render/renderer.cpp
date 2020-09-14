@@ -7,7 +7,7 @@
 #include <string>
 
 Renderer::Renderer(std::shared_ptr<SDL_Renderer> r)
-    : m_renderer{r}, m_font{TTF_OpenFont("assets/fonts/OpenSans-Regular.ttf", 24), TTF_CloseFont} {
+    : m_renderer{r}, m_font{TTF_OpenFont("assets/fonts/OpenSans-Regular.ttf", 12), TTF_CloseFont} {
     assert(r);
     clog::Log::get()->info("Renderer constructor");
     set_size(512, 512);

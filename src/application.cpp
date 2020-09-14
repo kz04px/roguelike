@@ -120,6 +120,9 @@ void Application::on_event(Event &e) {
 
 void Application::run() {
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
+    auto t0 = std::chrono::steady_clock::now();
+    int frame = 0;
+    int fps = 0;
 
     while (!m_quit) {
         // Handle SDL events
@@ -175,10 +178,35 @@ void Application::run() {
         m_game->render();
         m_renderer->render();
 
+        // Display FPS
+        m_renderer->set_colour(0, 0, 255, 255);
+        if (fps > 0) {
+            const std::string fps_string = "FPS: " + std::to_string(fps);
+            m_renderer->draw_text(0, 0, fps_string, true);
+        } else {
+            const std::string fps_string = "FPS: -";
+            m_renderer->draw_text(0, 0, fps_string, true);
+        }
+
         // Swap
         m_window->swap();
 
         // Wait
         SDL_Delay(16);
+
+        frame++;
+
+        // Update FPS
+        if (frame % 100 == 0) {
+            const auto t1 = std::chrono::steady_clock::now();
+            const auto dt = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
+            t0 = t1;
+
+            if (dt.count() > 0) {
+                fps = 100 * 1000.0f / dt.count();
+            } else {
+                fps = 0;
+            }
+        }
     }
 }
