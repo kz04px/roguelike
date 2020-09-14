@@ -128,7 +128,10 @@ void Renderer::draw_rect_tex(const int id,
 }
 
 // Render text
-void Renderer::draw_text(const int x, const int y, const std::string &text) {
+void Renderer::draw_text(const int x,
+                         const int y,
+                         const std::string &text,
+                         const bool draw_background) {
     SDL_Color black = {0, 0, 0, 255};
 
     SDL_Surface *surface = TTF_RenderText_Solid(m_font.get(), text.c_str(), black);
@@ -149,6 +152,10 @@ void Renderer::draw_text(const int x, const int y, const std::string &text) {
 
     message_rect.x = x;
     message_rect.y = y;
+
+    if (draw_background) {
+        draw_rect_fill(x, y, message_rect.w, message_rect.h);
+    }
 
     SDL_RenderCopy(m_renderer.get(), message, NULL, &message_rect);
 

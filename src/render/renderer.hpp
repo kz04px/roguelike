@@ -46,7 +46,10 @@ class Renderer {
                        const int y,
                        const int w,
                        const int h);
-    void draw_text(const int x, const int y, const std::string &text);
+    void draw_text(const int x,
+                   const int y,
+                   const std::string &text,
+                   const bool draw_background = false);
 
    private:
     int m_width = 512;
