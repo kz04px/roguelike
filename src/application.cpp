@@ -1,5 +1,5 @@
 #include "application.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <clog/clog.hpp>
 #include <cprof/profiler.hpp>

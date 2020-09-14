@@ -1,5 +1,5 @@
 #include "window.hpp"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <cassert>
 #include <clog/clog.hpp>
 #include <stdexcept>
