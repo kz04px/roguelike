@@ -10,6 +10,10 @@
 #include "spell_manager.hpp"
 
 class Event;
+class KeyPressEvent;
+class KeyReleaseEvent;
+class WindowCloseEvent;
+class WindowResizeEvent;
 class Renderer;
 
 class Game {
@@ -24,10 +28,10 @@ class Game {
 
     // Events
     void on_event(Event &e);
-    void on_key_press(Event &e);
-    void on_key_release(Event &e);
-    void on_window_close(Event &e);
-    void on_window_resize(Event &e);
+    void on_key_press(KeyPressEvent &e);
+    void on_key_release(KeyReleaseEvent &e);
+    void on_window_close(WindowCloseEvent &e);
+    void on_window_resize(WindowResizeEvent &e);
 
     // Systems -- Game logic
     void s_age();

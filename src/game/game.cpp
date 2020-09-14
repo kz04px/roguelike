@@ -195,17 +195,17 @@ void Game::load() {
     }
 }
 
-void Game::on_key_press(Event &e) {
+void Game::on_key_press(KeyPressEvent &e) {
     step();
 }
 
-void Game::on_key_release(Event &e) {
+void Game::on_key_release(KeyReleaseEvent &e) {
 }
 
-void Game::on_window_close(Event &e) {
+void Game::on_window_close(WindowCloseEvent &e) {
 }
 
-void Game::on_window_resize(Event &e) {
+void Game::on_window_resize(WindowResizeEvent &e) {
 }
 
 void Game::on_event(Event &e) {
