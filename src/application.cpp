@@ -14,15 +14,19 @@
 #include "window.hpp"
 
 static const std::unordered_map<SDL_Keycode, KeyType> key_lut = {
-    {SDLK_a, KeyType::Key_A}, {SDLK_b, KeyType::Key_B}, {SDLK_c, KeyType::Key_C},
-    {SDLK_d, KeyType::Key_D}, {SDLK_e, KeyType::Key_E}, {SDLK_f, KeyType::Key_F},
-    {SDLK_g, KeyType::Key_G}, {SDLK_h, KeyType::Key_H}, {SDLK_i, KeyType::Key_I},
-    {SDLK_j, KeyType::Key_J}, {SDLK_k, KeyType::Key_K}, {SDLK_l, KeyType::Key_L},
-    {SDLK_m, KeyType::Key_M}, {SDLK_n, KeyType::Key_N}, {SDLK_o, KeyType::Key_O},
-    {SDLK_p, KeyType::Key_P}, {SDLK_q, KeyType::Key_Q}, {SDLK_r, KeyType::Key_R},
-    {SDLK_s, KeyType::Key_S}, {SDLK_t, KeyType::Key_T}, {SDLK_u, KeyType::Key_U},
-    {SDLK_v, KeyType::Key_V}, {SDLK_w, KeyType::Key_W}, {SDLK_x, KeyType::Key_X},
-    {SDLK_y, KeyType::Key_Y}, {SDLK_z, KeyType::Key_Z}, {SDLK_ESCAPE, KeyType::Key_ESC},
+    {SDLK_a, KeyType::Key_A},     {SDLK_b, KeyType::Key_B},     {SDLK_c, KeyType::Key_C},
+    {SDLK_d, KeyType::Key_D},     {SDLK_e, KeyType::Key_E},     {SDLK_f, KeyType::Key_F},
+    {SDLK_g, KeyType::Key_G},     {SDLK_h, KeyType::Key_H},     {SDLK_i, KeyType::Key_I},
+    {SDLK_j, KeyType::Key_J},     {SDLK_k, KeyType::Key_K},     {SDLK_l, KeyType::Key_L},
+    {SDLK_m, KeyType::Key_M},     {SDLK_n, KeyType::Key_N},     {SDLK_o, KeyType::Key_O},
+    {SDLK_p, KeyType::Key_P},     {SDLK_q, KeyType::Key_Q},     {SDLK_r, KeyType::Key_R},
+    {SDLK_s, KeyType::Key_S},     {SDLK_t, KeyType::Key_T},     {SDLK_u, KeyType::Key_U},
+    {SDLK_v, KeyType::Key_V},     {SDLK_w, KeyType::Key_W},     {SDLK_x, KeyType::Key_X},
+    {SDLK_y, KeyType::Key_Y},     {SDLK_z, KeyType::Key_Z},     {SDLK_ESCAPE, KeyType::Key_ESC},
+    {SDLK_F1, KeyType::Key_F1},   {SDLK_F2, KeyType::Key_F2},   {SDLK_F3, KeyType::Key_F3},
+    {SDLK_F4, KeyType::Key_F4},   {SDLK_F5, KeyType::Key_F5},   {SDLK_F6, KeyType::Key_F6},
+    {SDLK_F7, KeyType::Key_F7},   {SDLK_F8, KeyType::Key_F8},   {SDLK_F9, KeyType::Key_F9},
+    {SDLK_F10, KeyType::Key_F10}, {SDLK_F11, KeyType::Key_F11}, {SDLK_F12, KeyType::Key_F12},
 };
 
 Application::Application() : m_quit{false} {

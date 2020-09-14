@@ -32,6 +32,18 @@ enum KeyType
     Key_Y,
     Key_Z,
     Key_ESC,
+    Key_F1,
+    Key_F2,
+    Key_F3,
+    Key_F4,
+    Key_F5,
+    Key_F6,
+    Key_F7,
+    Key_F8,
+    Key_F9,
+    Key_F10,
+    Key_F11,
+    Key_F12,
 };
 
 enum class KeyState
