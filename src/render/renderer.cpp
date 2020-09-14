@@ -6,7 +6,8 @@
 #include <cprof/profiler.hpp>
 #include <string>
 
-Renderer::Renderer(std::shared_ptr<SDL_Renderer> r) : m_renderer{r} {
+Renderer::Renderer(std::shared_ptr<SDL_Renderer> r)
+    : m_renderer{r}, m_font{TTF_OpenFont("assets/fonts/OpenSans-Regular.ttf", 24), TTF_CloseFont} {
     assert(r);
     clog::Log::get()->info("Renderer constructor");
     set_size(512, 512);
@@ -124,4 +125,32 @@ void Renderer::draw_rect_tex(const int id,
     dst.h = h;
 
     SDL_RenderCopy(m_renderer.get(), m_textures.find(id)->second.get(), &src, &dst);
+}
+
+// Render text
+void Renderer::draw_text(const int x, const int y, const std::string &text) {
+    SDL_Color black = {0, 0, 0, 255};
+
+    SDL_Surface *surface = TTF_RenderText_Solid(m_font.get(), text.c_str(), black);
+
+    if (!surface) {
+        return;
+    }
+
+    SDL_Texture *message = SDL_CreateTextureFromSurface(m_renderer.get(), surface);
+
+    if (!message) {
+        return;
+    }
+
+    SDL_Rect message_rect;
+    message_rect.x = x;
+    message_rect.y = y;
+    message_rect.w = 100;
+    message_rect.h = 100;
+
+    SDL_RenderCopy(m_renderer.get(), message, NULL, &message_rect);
+
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(message);
 }

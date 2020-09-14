@@ -1,6 +1,8 @@
 #ifndef RENDERER_RENDER_HPP
 #define RENDERER_RENDER_HPP
 
+#include <SDL2/SDL_ttf.h>
+#include <functional>
 #include <map>
 #include <memory>
 #include "texture.hpp"
@@ -36,11 +38,13 @@ class Renderer {
                        const int y,
                        const int w,
                        const int h);
+    void draw_text(const int x, const int y, const std::string &text);
 
    private:
     int m_width = 512;
     int m_height = 512;
     std::shared_ptr<SDL_Renderer> m_renderer;
+    std::unique_ptr<TTF_Font, std::function<void(TTF_Font *)>> m_font;
     std::map<int, std::shared_ptr<SDL_Texture>> m_textures;
 };
 

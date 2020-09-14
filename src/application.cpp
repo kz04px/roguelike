@@ -1,6 +1,7 @@
 #include "application.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <clog/clog.hpp>
 #include <cprof/profiler.hpp>
 #include <events/event.hpp>
@@ -45,6 +46,14 @@ Application::Application() : m_quit{false} {
             throw std::exception();
         }
         clog::Log::get()->info("SDL IMG initialised: ", flags);
+    }
+
+    {
+        auto n = TTF_Init();
+        if (n == -1) {
+            clog::Log::get()->error("TTF_Init failed ", TTF_GetError());
+            throw std::exception();
+        }
     }
 
     m_window = std::make_unique<Window>("Roguelike", 512, 512);
