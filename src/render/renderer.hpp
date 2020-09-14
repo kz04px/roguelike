@@ -18,6 +18,14 @@ class Renderer {
 
     ~Renderer();
 
+    [[nodiscard]] auto height() const noexcept {
+        return m_height;
+    }
+
+    [[nodiscard]] auto width() const noexcept {
+        return m_width;
+    }
+
     bool load_texture(const int id, const std::string &path);
 
     void clear();

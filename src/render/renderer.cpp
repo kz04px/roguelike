@@ -83,7 +83,7 @@ void Renderer::set_colour(const int r, const int g, const int b, const int a) {
 void Renderer::draw_rect_fill(const int x, const int y, const int w, const int h) {
     SDL_Rect rect;
     rect.x = x;
-    rect.y = m_height - y - h;
+    rect.y = y;
     rect.w = w;
     rect.h = h;
     SDL_RenderFillRect(m_renderer.get(), &rect);
@@ -93,7 +93,7 @@ void Renderer::draw_rect_fill(const int x, const int y, const int w, const int h
 void Renderer::draw_rect(const int x, const int y, const int w, const int h) {
     SDL_Rect rect;
     rect.x = x;
-    rect.y = m_height - y - h;
+    rect.y = y;
     rect.w = w;
     rect.h = h;
     SDL_RenderDrawRect(m_renderer.get(), &rect);
@@ -120,7 +120,7 @@ void Renderer::draw_rect_tex(const int id,
     // Screen rect
     SDL_Rect dst;
     dst.x = x;
-    dst.y = m_height - y - h;
+    dst.y = y;
     dst.w = w;
     dst.h = h;
 
