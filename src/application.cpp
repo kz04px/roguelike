@@ -136,6 +136,11 @@ void Application::run() {
                     }
                     break;
                 }
+                case SDL_MOUSEMOTION: {
+                    auto e = MouseMoveEvent(event.motion.x, event.motion.y);
+                    on_event(e);
+                    break;
+                }
                 case SDL_MOUSEBUTTONDOWN:
                     break;
                 case SDL_WINDOWEVENT:
