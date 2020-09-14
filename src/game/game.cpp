@@ -1,6 +1,8 @@
 #include "game.hpp"
 #include <cassert>
 #include <cprof/profiler.hpp>
+#include <noise/perlin.hpp>
+#include "chunk_manager.hpp"
 // Events
 #include <events/event.hpp>
 #include <events/keyboard-event.hpp>
@@ -29,8 +31,24 @@ const int components::Timer::id = 6;
 const int components::Spellbook::id = 7;
 const int components::Health::id = 8;
 
+[[nodiscard]] Tile generator(const int x, const int y) {
+    auto n = noise::perlin::get(x / 16.0f, y / 16.0f, 0.0);
+    if (n > 0.1) {
+        return Tile(Terrain::Dirt);
+    } else if (n > -0.3) {
+        return Tile(Terrain::Stone);
+    } else {
+        return Tile(Terrain::Water);
+    }
+}
+
 Game::Game(std::shared_ptr<Renderer> r)
-    : m_ecs{}, m_frame{0}, m_renderer{r}, m_tile_map{}, m_spell_manager{}, m_camera{0, 0, 32, 32} {
+    : m_ecs{},
+      m_frame{0},
+      m_renderer{r},
+      m_tile_map{generator},
+      m_spell_manager{},
+      m_camera{0, 0, 32, 32} {
     assert(r);
     auto t = cprof::Timer(__PRETTY_FUNCTION__);
 

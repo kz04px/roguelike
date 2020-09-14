@@ -21,20 +21,20 @@ void Game::s_render() {
                 const int world_x = x_offset + x;
                 const int world_y = y_offset + y;
 
-                switch (m_tile_map.get_tile(world_x, world_y)) {
-                    case Tile::Dirt:
+                switch (m_tile_map.get_tile(world_x, world_y).terrain()) {
+                    case Terrain::Dirt:
                         m_renderer->set_colour(96, 64, 31, 255);
                         m_renderer->draw_rect_fill(16 * x, 16 * y, 16, 16);
                         // renderer_->draw_rect_tex(
                         //    0, 1, 0, 16 * x, 16 * y, 16, 16);
                         break;
-                    case Tile::Stone:
+                    case Terrain::Stone:
                         m_renderer->set_colour(51, 26, 0, 255);
                         m_renderer->draw_rect_fill(16 * x, 16 * y, 16, 16);
                         // renderer_->draw_rect_tex(
                         //    0, 1, 0, 16 * x, 16 * y, 16, 16);
                         break;
-                    case Tile::Water:
+                    case Terrain::Water:
                         m_renderer->set_colour(50, 50, 200, 255);
                         m_renderer->draw_rect_fill(16 * x, 16 * y, 16, 16);
                         break;

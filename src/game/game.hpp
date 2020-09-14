@@ -6,8 +6,8 @@
 #include <ecs/entity.hpp>
 #include <memory>
 #include "camera.hpp"
+#include "chunk_manager.hpp"
 #include "spell_manager.hpp"
-#include "tilemap.hpp"
 
 class Event;
 class Renderer;
@@ -48,7 +48,7 @@ class Game {
     ECS m_ecs;
     std::uint64_t m_frame;
     std::shared_ptr<Renderer> m_renderer;
-    TileMap m_tile_map;
+    ChunkManager<Tile> m_tile_map;
     SpellManager m_spell_manager;
     Camera m_camera;
 };
