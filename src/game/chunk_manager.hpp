@@ -32,11 +32,11 @@ class ChunkManager {
     }
 
     [[nodiscard]] constexpr static int tile_chunk_x(const int tile_x) {
-        return tile_x >= 0 ? tile_x / W : tile_x / W - 1;
+        return tile_x >= 0 ? tile_x / W : (tile_x + 1) / W - 1;
     }
 
     [[nodiscard]] constexpr static int tile_chunk_y(const int tile_y) {
-        return tile_y >= 0 ? tile_y / H : tile_y / H - 1;
+        return tile_y >= 0 ? tile_y / H : (tile_y + 1) / H - 1;
     }
 
     [[nodiscard]] constexpr static std::pair<int, int> tile_chunk(const int tile_x,
@@ -111,7 +111,8 @@ class ChunkManager {
 
 // What chunk are these tiles in?
 static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(0, 0) == std::pair<int, int>{0, 0});
-static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(-16, 0) == std::pair<int, int>{-2, 0});
+static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(-17, 0) == std::pair<int, int>{-2, 0});
+static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(-16, 0) == std::pair<int, int>{-1, 0});
 static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(-15, 0) == std::pair<int, int>{-1, 0});
 static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(-1, 0) == std::pair<int, int>{-1, 0});
 static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(0, -1) == std::pair<int, int>{0, -1});
@@ -124,6 +125,9 @@ static_assert(ChunkManager<Tile, 16, 16>::tile_chunk(15, 16) == std::pair<int, i
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(0, 0) == std::pair<int, int>{0, 0});
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(1, 2) == std::pair<int, int>{1, 2});
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(-1, 0) == std::pair<int, int>{15, 0});
+static_assert(ChunkManager<Tile, 16, 16>::tile_offset(-15, 0) == std::pair<int, int>{1, 0});
+static_assert(ChunkManager<Tile, 16, 16>::tile_offset(-16, 0) == std::pair<int, int>{0, 0});
+static_assert(ChunkManager<Tile, 16, 16>::tile_offset(-17, 0) == std::pair<int, int>{15, 0});
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(0, -1) == std::pair<int, int>{0, 15});
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(15, 15) == std::pair<int, int>{15, 15});
 static_assert(ChunkManager<Tile, 16, 16>::tile_offset(16, 16) == std::pair<int, int>{0, 0});

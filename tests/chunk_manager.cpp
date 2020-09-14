@@ -42,3 +42,21 @@ TEST_CASE("ChunkManager") {
 
     REQUIRE(cm.size() == 2);
 }
+
+TEST_CASE("ChunkManager::get_tile() 1") {
+    const auto gen = [](const int x, const int y) { return TestTile(x); };
+    ChunkManager<TestTile> cm(gen);
+
+    for (int i = -100; i <= 100; ++i) {
+        REQUIRE(cm.get_tile(i, 0).n() == gen(i, 0).n());
+    }
+}
+
+TEST_CASE("ChunkManager::get_tile() 2") {
+    const auto gen = [](const int x, const int y) { return TestTile(y); };
+    ChunkManager<TestTile> cm(gen);
+
+    for (int i = -100; i <= 100; ++i) {
+        REQUIRE(cm.get_tile(0, i).n() == gen(0, i).n());
+    }
+}
