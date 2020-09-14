@@ -144,10 +144,11 @@ void Renderer::draw_text(const int x, const int y, const std::string &text) {
     }
 
     SDL_Rect message_rect;
+
+    TTF_SizeText(m_font.get(), text.c_str(), &message_rect.w, &message_rect.h);
+
     message_rect.x = x;
     message_rect.y = y;
-    message_rect.w = 100;
-    message_rect.h = 100;
 
     SDL_RenderCopy(m_renderer.get(), message, NULL, &message_rect);
 
