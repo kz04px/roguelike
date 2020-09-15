@@ -28,6 +28,7 @@ add_executable(
     src/main.cpp
     src/window.cpp
     src/application.cpp
+    src/settings.cpp
     src/game/game.cpp
     src/game/systems/age.cpp
     src/game/systems/camera.cpp

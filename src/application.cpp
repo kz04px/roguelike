@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include "inputs.hpp"
 #include "render/renderer.hpp"
+#include "settings.hpp"
 #include "window.hpp"
 
 static const std::unordered_map<SDL_Keycode, KeyType> key_lut = {
@@ -82,6 +83,14 @@ Application::~Application() {
 
 void Application::on_key_press(KeyPressEvent &e) {
     Inputs::get()->set_key(e.key(), KeyState::Down);
+    switch (e.key()) {
+        case KeyType::Key_F2:
+            settings::debug = !settings::debug;
+            break;
+        default:
+            break;
+    }
+    m_main_menu->on_event(e);
 }
 
 void Application::on_key_release(KeyReleaseEvent &e) {
@@ -183,13 +192,15 @@ void Application::run() {
         m_renderer->render();
 
         // Display FPS
-        m_renderer->set_colour(0, 0, 255, 255);
-        if (fps > 0) {
-            const std::string fps_string = "FPS: " + std::to_string(fps);
-            m_renderer->draw_text(0, 0, fps_string, true);
-        } else {
-            const std::string fps_string = "FPS: -";
-            m_renderer->draw_text(0, 0, fps_string, true);
+        if (settings::debug) {
+            m_renderer->set_colour(0, 0, 255, 255);
+            if (fps > 0) {
+                const std::string fps_string = "FPS: " + std::to_string(fps);
+                m_renderer->draw_text(0, 0, fps_string, true);
+            } else {
+                const std::string fps_string = "FPS: -";
+                m_renderer->draw_text(0, 0, fps_string, true);
+            }
         }
 
         // Swap
