@@ -23,17 +23,10 @@ Window::Window(const std::string &title, const int w, const int h) : m_width(w),
         SDL_CreateRenderer(m_window.get(), -1, SDL_RENDERER_ACCELERATED), SDL_DestroyRenderer);
     if (!m_renderer) {
         throw std::exception();
-
-        SDL_Rect rect;
-        rect.x = 0;
-        rect.y = 0;
-        rect.w = m_width;
-        rect.h = m_height;
-        SDL_RenderSetViewport(m_renderer.get(), &rect);
-        SDL_RenderSetClipRect(m_renderer.get(), &rect);
-        SDL_SetRenderDrawColor(m_renderer.get(), 255, 255, 255, 255);
-        SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
     }
+
+    resize(m_width, m_height);
+    SDL_SetRenderDrawBlendMode(m_renderer.get(), SDL_BLENDMODE_BLEND);
 }
 
 Window::~Window() {
